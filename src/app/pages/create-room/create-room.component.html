@@ -1,0 +1,16 @@
+<form [formGroup]="form" (submit)="createRoom()">
+  <label for="roomName">Room Name:</label> <br />
+  <input id="roomName" type="text" formControlName="roomName" />
+
+  <br />
+  <br />
+
+  <label for="roomName">Room Password:</label> <br />
+  <input type="password" formControlName="password" />
+
+  <br />
+  <br />
+
+  <button type="submit" [disabled]="form.invalid">Create!</button>
+
+</form>
