@@ -1,6 +1,6 @@
 # NgRtcCallApp
 
-### This application made for learning purpose.
+### This application was made for learning purpose.
 
 **What this application does? (or what it is intended to do)**
 
