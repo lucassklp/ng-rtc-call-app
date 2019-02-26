@@ -1,4 +1,12 @@
 <form [formGroup]="form" (submit)="enterRoom()">
+
+  <label for="nickname">Your nickname:</label> <br />
+  <input id="nickname" type="text" formControlName="nickname" />
+
+  <br />
+  <br />
+
+
   <label for="roomName">Room Name:</label> <br />
   <input id="roomName" type="text" formControlName="roomName" />
 
@@ -11,6 +19,6 @@
   <br />
   <br />
 
-  <button type="submit" [disabled]="form.invalid">Create!</button>
+  <button type="submit" [disabled]="form.invalid">Join!</button>
 
 </form>

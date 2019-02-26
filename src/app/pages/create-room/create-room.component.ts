@@ -8,7 +8,7 @@ import { Room } from 'src/app/domain/room';
   templateUrl: './create-room.component.html',
   styleUrls: ['./create-room.component.scss']
 })
-export class CreateRoomComponent {
+export class CreateRoomComponent implements OnInit {
 
   form: FormGroup
   constructor(fb: FormBuilder, private afs: AngularFirestore) {
@@ -17,6 +17,10 @@ export class CreateRoomComponent {
       'password': ['', Validators.required]
     })
   }
+
+  ngOnInit() {
+  }
+
 
   createRoom(){
     console.log('Creating the room...')
@@ -28,9 +32,10 @@ export class CreateRoomComponent {
 
     console.log(room);
 
-    this.afs.collection('rooms').add(room).then(x => {
-      console.log(x);
+    this.afs.collection('room').add(room).then(x => {
+      
     });
+
 
   }
 }

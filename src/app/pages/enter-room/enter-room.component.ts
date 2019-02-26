@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { RoomAccess } from 'src/app/domain/room.access';
 
 @Component({
   selector: 'app-enter-room',
@@ -13,24 +14,23 @@ export class EnterRoomComponent {
   constructor(fb: FormBuilder, private afs: AngularFirestore) {
     this.form = fb.group({
       'roomName': ['', Validators.required],
-      'password': ['', Validators.required]
+      'password': ['', Validators.required],
+      'nickname': ['', Validators.required]
     })
   }
 
   enterRoom(){
-    console.log('Creating the room...')
+    console.log('Entering the room...')
     
-    let room: Room = {
+    let roomAccess: RoomAccess = {
       name: this.form.controls['roomName'].value,
-      password: this.form.controls['password'].value
+      password: this.form.controls['password'].value,
+      nickname: this.form.controls['nickname'].value,
     }
 
-    console.log(room);
+    this.afs.collection('rooms', r => r.where('name', '==', roomAccess.name).where('password', '==', roomAccess.password))
 
-    this.afs.collection('rooms').add(room).then(x => {
-      console.log(x);
-    });
-
+    console.log(roomAccess);
   }
 
 }
