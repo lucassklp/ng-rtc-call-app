@@ -1,5 +1,29 @@
 # NgRtcCallApp
 
+### This application made for learning purpose.
+
+**What this application does? (or what it is intended to do)**
+
+- An individual chat between two person
+
+- A chat group between many people
+
+- The chat can be understood as: text, audio (optional) and video (optional) communication
+
+### Articles used to make this application
+
+I will put here all articles that helped me to develop and all doubts that I faced when I was developing it.
+
+#### Articles
+- https://blog.sessionstack.com/how-javascript-works-webrtc-and-the-mechanics-of-peer-to-peer-connectivity-87cc56c1d0ab
+
+#### Doubts
+
+
+
+
+# NgRtcCallApp (How to build)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 
 ## Development server
