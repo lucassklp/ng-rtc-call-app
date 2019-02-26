@@ -16,9 +16,14 @@ I will put here all articles that helped me to develop and all doubts that I fac
 
 #### Articles
 - https://blog.sessionstack.com/how-javascript-works-webrtc-and-the-mechanics-of-peer-to-peer-connectivity-87cc56c1d0ab
+- https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/
+- https://www.html5rocks.com/en/tutorials/webrtc/basics/
+- https://w3c.github.io/webrtc-pc/#simple-peer-to-peer-example
 
 #### Doubts
-
+- Where can I find STUN + TURN servers?
+  - https://gist.github.com/yetithefoot/7592580
+  - https://gist.github.com/mondain/b0ec1cf5f60ae726202e
 
 
 
