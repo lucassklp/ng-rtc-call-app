@@ -13,6 +13,28 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    
+    console.log(`You are in the room with id ${this.id}`)
+
+
+    let audioPromise = navigator.mediaDevices.getUserMedia({
+      audio: true
+    });
+
+    audioPromise.then(audioStream => {
+      //O script abaixo é responsável por processar audio streams.. 
+      //Nesse exemplo, eu estou reproduzindo minha propria voz no browser 
+      //(ele captura o áudio do mic e simplesmente reproduz)
+      const audioContext = new AudioContext();
+      const gainNode = audioContext.createGain();
+      gainNode.connect(audioContext.destination);
+
+      const microphoneStream = audioContext.createMediaStreamSource(audioStream);
+      microphoneStream.connect(gainNode);
+    })
+
+    audioPromise.catch((x) => {
+      console.log('Not Worked');
+      console.log(x);
+    })
   }
 }

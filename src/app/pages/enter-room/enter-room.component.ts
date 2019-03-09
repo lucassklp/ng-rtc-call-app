@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { RoomAccess } from 'src/app/domain/room.access';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enter-room',
@@ -11,7 +12,7 @@ import { RoomAccess } from 'src/app/domain/room.access';
 export class EnterRoomComponent {
 
   form: FormGroup;
-  constructor(fb: FormBuilder, private afs: AngularFirestore) {
+  constructor(fb: FormBuilder, private afs: AngularFirestore, private router: Router) {
     this.form = fb.group({
       'roomName': ['', Validators.required],
       'password': ['', Validators.required],
@@ -19,18 +20,19 @@ export class EnterRoomComponent {
     })
   }
 
-  enterRoom(){
-    console.log('Entering the room...')
-    
+  enterRoom(){    
     let roomAccess: RoomAccess = {
       name: this.form.controls['roomName'].value,
       password: this.form.controls['password'].value,
       nickname: this.form.controls['nickname'].value,
     }
 
-    this.afs.collection('rooms', r => r.where('name', '==', roomAccess.name).where('password', '==', roomAccess.password))
-
-    console.log(roomAccess);
+    const rooms = this.afs.collection('rooms', r => r.where('name', '==', roomAccess.name)
+      .where('password', '==', roomAccess.password))
+    
+    rooms.get().subscribe(x => {
+      let id = x.docs[0].id;
+      this.router.navigate([`room/${id}`]);
+    });
   }
-
 }
