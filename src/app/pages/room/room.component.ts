@@ -9,12 +9,18 @@ import { ActivatedRoute } from '@angular/router';
 export class RoomComponent implements OnInit {
 
   id: string;
+  gainNode: GainNode;
+
   constructor(private route: ActivatedRoute) { }
+
+
+  changeVolume(value: number) {
+    this.gainNode.gain.value = value;
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log(`You are in the room with id ${this.id}`)
-
 
     let audioPromise = navigator.mediaDevices.getUserMedia({
       audio: true
@@ -25,11 +31,11 @@ export class RoomComponent implements OnInit {
       //Nesse exemplo, eu estou reproduzindo minha propria voz no browser 
       //(ele captura o áudio do mic e simplesmente reproduz)
       const audioContext = new AudioContext();
-      const gainNode = audioContext.createGain();
-      gainNode.connect(audioContext.destination);
+      this.gainNode = audioContext.createGain();
+      this.gainNode.connect(audioContext.destination);
 
       const microphoneStream = audioContext.createMediaStreamSource(audioStream);
-      microphoneStream.connect(gainNode);
+      microphoneStream.connect(this.gainNode);
     })
 
     audioPromise.catch((x) => {
