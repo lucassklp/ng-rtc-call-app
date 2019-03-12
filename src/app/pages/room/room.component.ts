@@ -1,3 +1,4 @@
+/// <reference types="@types/dom-mediacapture-record" />
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -41,6 +42,29 @@ export class RoomComponent implements OnInit {
     audioPromise.catch((x) => {
       console.log('Not Worked');
       console.log(x);
-    })
+    });
+
+
+    //Script para captura de tela
+    let screenSharingPromise = (): Promise<MediaStream> => {
+      if (navigator.getDisplayMedia) {
+        return navigator.getDisplayMedia({video: true});
+      } else if (navigator.mediaDevices.getDisplayMedia) {
+        return navigator.mediaDevices.getDisplayMedia({video: true});
+      } else {
+        return navigator.mediaDevices.getUserMedia({video: {mediaSource: 'screen'}});
+      }
+    }
+
+    screenSharingPromise().then(stream => {
+      console.log('stream');
+      let mediaRecorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+      let video = <HTMLVideoElement>document.querySelector('video');
+      video.srcObject = stream;
+      video.onloadedmetadata = function() {
+        video.play();
+      };
+      mediaRecorder.start(10);
+    });
   }
 }
