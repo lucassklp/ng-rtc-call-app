@@ -15,6 +15,8 @@ import { environment } from '../environments/environment';
 import { CreateRoomComponent } from './pages/create-room/create-room.component';
 import { RoomComponent } from './pages/room/room.component';
 import { EnterRoomComponent } from './pages/enter-room/enter-room.component';
+import { CaptureAudioService } from './services/capture-audio.service';
+import { CaptureScreenService } from './services/capture-screen.service';
 
 
 @NgModule({
@@ -35,7 +37,10 @@ import { EnterRoomComponent } from './pages/enter-room/enter-room.component';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
-  providers: [],
+  providers: [
+    CaptureAudioService,
+    CaptureScreenService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,8 @@
 /// <reference types="@types/dom-mediacapture-record" />
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CaptureAudioService } from 'src/app/services/capture-audio.service';
+import { CaptureScreenService } from 'src/app/services/capture-screen.service';
 
 @Component({
   selector: 'app-room',
@@ -12,7 +14,9 @@ export class RoomComponent implements OnInit {
   id: string;
   gainNode: GainNode;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, 
+    private audioService: CaptureAudioService,
+    private screenService: CaptureScreenService) { }
 
 
   changeVolume(value: number) {
@@ -23,9 +27,7 @@ export class RoomComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log(`You are in the room with id ${this.id}`)
 
-    let audioPromise = navigator.mediaDevices.getUserMedia({
-      audio: true
-    });
+    let audioPromise = this.audioService.capture()
 
     audioPromise.then(audioStream => {
       //O script abaixo é responsável por processar audio streams.. 
@@ -44,20 +46,8 @@ export class RoomComponent implements OnInit {
       console.log(x);
     });
 
-
     //Script para captura de tela
-    let screenSharingPromise = (): Promise<MediaStream> => {
-      if (navigator.getDisplayMedia) {
-        return navigator.getDisplayMedia({video: true});
-      } else if (navigator.mediaDevices.getDisplayMedia) {
-        return navigator.mediaDevices.getDisplayMedia({video: true});
-      } else {
-        return navigator.mediaDevices.getUserMedia({video: {mediaSource: 'screen'}});
-      }
-    }
-
-    screenSharingPromise().then(stream => {
-      console.log('stream');
+    this.screenService.capture().then(stream => {
       let mediaRecorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
       let video = <HTMLVideoElement>document.querySelector('video');
       video.srcObject = stream;
