@@ -8,7 +8,7 @@
 
 - A chat group between many people
 
-- The chat can be understood as: text, audio (optional) and video (optional), and screen recording (optional) communication
+- The chat can be understood as: text, audio (optional), video (optional), and screen recording (optional) communication
 
 ### Articles used to make this application
 
